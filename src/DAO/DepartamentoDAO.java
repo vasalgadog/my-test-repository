@@ -69,4 +69,28 @@ public class DepartamentoDAO {
         
         return id;
     }
+    
+    public String buscaNombre(int id){
+        String departamento = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try{
+            con = UConnection.getConnection();
+            String sql = "SELECT nombre FROM departamento WHERE id = ?";
+            
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            
+            rs.next();
+            departamento = rs.getString("nombre");
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+        return departamento;
+    }
 }

@@ -11,8 +11,7 @@ import DAO.TrabajadorDAO;
 import DTO.DepartamentoDTO;
 import DTO.SexoDTO;
 import DTO.TrabajadorDTO;
-import java.util.List;
-import javax.swing.ComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,6 +28,7 @@ public class Vista extends javax.swing.JFrame {
         initComponents();
         llenaDepartamentos();
         llenaSexo();
+        llenaTabla();
     }
 
     /**
@@ -167,6 +167,8 @@ public class Vista extends javax.swing.JFrame {
 
         jcbDpto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jsAnioIngreso.setValue(2021);
+
         javax.swing.GroupLayout jpNuevoEmpleadoLayout = new javax.swing.GroupLayout(jpNuevoEmpleado);
         jpNuevoEmpleado.setLayout(jpNuevoEmpleadoLayout);
         jpNuevoEmpleadoLayout.setHorizontalGroup(
@@ -299,6 +301,7 @@ public class Vista extends javax.swing.JFrame {
         trabajador.setDepartamento_id(dptoDAO.buscaId(jcbDpto.getSelectedItem().toString()));
         
         trDAO.Agregar(trabajador);
+        llenaTabla();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -335,6 +338,15 @@ public class Vista extends javax.swing.JFrame {
                 new Vista().setVisible(true);
             }
         });
+    }
+    
+    public void llenaTabla(){
+        DefaultTableModel model = (DefaultTableModel) jtListaEmpleados.getModel();
+        model.setRowCount(0);
+        for(TrabajadorDTO trab : trDAO.buscarTodos()){
+            Object[] row = {trab.getRut(), trab.getNombre()+" "+trab.getApellido_paterno()+" "+trab.getApellido_materno(), trab.getEmail(), sxDAO.buscaDesc(trab.getSexo_id()), trab.getAnio_ingreso(),dptoDAO.buscaNombre(trab.getDepartamento_id())};
+            model.addRow(row);
+        }
     }
     
     public void llenaSexo(){

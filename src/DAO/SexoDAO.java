@@ -65,4 +65,28 @@ public class SexoDAO {
         
         return id;
     }
+    
+        public String buscaDesc(int id){
+        String sexo = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try{
+            con = UConnection.getConnection();
+            String sql = "SELECT descripcion FROM sexo WHERE id = ?";
+            
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            
+            rs.next();
+            sexo = rs.getString("descripcion");
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+        return sexo;
+    }
 }

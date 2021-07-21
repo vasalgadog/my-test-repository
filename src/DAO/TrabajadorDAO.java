@@ -37,10 +37,10 @@ public class TrabajadorDAO {
                 trabajador.setApellido_paterno(rs.getString("apellido_paterno"));
                 trabajador.setApellido_materno(rs.getString("apellido_materno"));
                 trabajador.setRut(rs.getString("rut"));
-                trabajador.setSexo_id((byte)rs.getInt("sexo"));
+                trabajador.setSexo_id((byte)rs.getInt("sexo_id"));
                 trabajador.setEmail(rs.getString("email"));
                 trabajador.setAnio_ingreso(rs.getInt("anio_ingreso"));
-                trabajador.setDepartamento_id((byte)rs.getInt("departamento"));
+                trabajador.setDepartamento_id((byte)rs.getInt("departamento_id"));
                 list.add(trabajador);
             }
         }catch(Exception ex){
@@ -82,14 +82,16 @@ public class TrabajadorDAO {
                 trabajador.setApellido_paterno(rs.getString("apellido_paterno"));
                 trabajador.setApellido_materno(rs.getString("apellido_materno"));
                 trabajador.setRut(rs.getString("rut"));
-                trabajador.setSexo_id((byte)rs.getInt("sexo"));
+                trabajador.setSexo_id((byte)rs.getInt("sexo_id"));
                 trabajador.setEmail(rs.getString("email"));
                 trabajador.setAnio_ingreso(rs.getInt("anio_ingreso"));
-                trabajador.setDepartamento_id((byte)rs.getInt("departamento"));
+                trabajador.setDepartamento_id((byte)rs.getInt("departamento_id"));
                 list.add(trabajador);
             }
         }catch(Exception ex){
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, ex, "Error en la lista", JOptionPane.ERROR_MESSAGE);
+            
         }finally{
             try{
                 if(rs != null) rs.close();
